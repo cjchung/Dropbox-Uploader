@@ -20,6 +20,9 @@
 #
 
 #Default configuration file
+#CMD_DIR=$(expr match "$0" '\(\/.*\/\)')
+#print CMD_DIR=$CMD_DIR
+#exit
 CONFIG_FILE=~/.dropbox_uploader
 
 #If you are experiencing problems establishing SSL connection with the DropBox
@@ -694,12 +697,12 @@ case $COMMAND in
             remove_temp_files
             exit 1
         fi
-        
-        if [ $FILE_SIZE -gt 157286000 ]; then
+#        always upload by chunk
+#        if [ $FILE_SIZE -gt 157286000 ]; then
             #If the file is greater than 150Mb, the chunked_upload API will be used
             db_ckupload "$FILE_SRC" "$FILE_DST"
-        else
-            db_upload "$FILE_SRC" "$FILE_DST"
+#        else
+#            db_upload "$FILE_SRC" "$FILE_DST"
         fi
         
     ;;
